@@ -1,0 +1,129 @@
+site_name: Documentación Laboratorios LACNOG
+site_description: Documentación de Laboratorio VXLAN & EVPN
+site_author: Ariel Weher
+copyright: Copyright 2022
+repo_name: 'GitHub'
+site_url: https://vxlan.nog.lat
+repo_url: https://github.com/aweher/docs-vxlan-evpn
+edit_uri: edit/main/docs/
+dev_addr: '0.0.0.0:8000'
+
+theme:
+  icon:
+    repo: fontawesome/brands/gitlab
+  locale: en
+  language: en
+  prev_next_buttons_location: none
+  analytics:
+  gtag: 
+  name: material
+  features:
+    - content.code.annotate
+    - content.tabs.link
+    - navigation.top    
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.integrate
+
+  font:
+    text: Ubuntu
+  palette:
+  - primary: red
+  - accent: pink
+  - scheme: default
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Cambiar al modo oscuro
+  - scheme: slate
+    toggle:
+      icon: material/toggle-switch
+      name: Cambiar al modo claro
+
+nav:
+    - Home: 'README.md'
+    - '🇪🇸 Instrucciones':
+      - 'Inicial': '/es/'
+      - 'LAB1': '/es/lab1/'
+      - 'LAB2': '/es/lab2/'
+    - '🇬🇧 Instructions':
+      - 'Initial': '/en/'
+      - 'LAB1': '/en/lab1/'
+      - 'LAB2': '/en/lab2/'
+    - '🇵🇹 Instruções':
+      - 'Inicial': '/pt/'
+      - 'LAB1': '/pt/lab1/'
+      - 'LAB2': '/pt/lab2/'
+    - '🎁 Extras':
+      - 'SPINE Configs': '/extras/spine'
+
+markdown_extensions:
+    - toc:
+        permalink: "#"
+    - pymdownx.highlight:
+        linenums: true
+    - pymdownx.emoji:
+        emoji_index: !!python/name:materialx.emoji.twemoji
+        emoji_generator: !!python/name:materialx.emoji.to_svg
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - pymdownx.betterem:
+        smart_enable: all
+    - pymdownx.smartsymbols
+    - pymdownx.superfences:
+        custom_fences:
+          - name: mermaid
+            class: mermaid
+            format: !!python/name:pymdownx.superfences.fence_code_format
+    - pymdownx.inlinehilite
+    - pymdownx.keys
+    - pymdownx.snippets:
+        auto_append:
+          - docs/includes/glossary-es.md
+    - pymdownx.details
+    - pymdownx.tabbed:
+        alternate_style: true
+    - abbr
+    - admonition
+    - attr_list
+    - def_list
+    - footnotes
+    - meta
+    - pymdownx.critic
+    - pymdownx.caret
+    - pymdownx.keys
+    - pymdownx.mark
+    - pymdownx.tilde
+
+plugins:
+  - search
+  - git-revision-date
+  - git-revision-date-localized
+  - macros
+
+extra:
+  generator: false
+  analytics:
+    provider: google
+    property: G-WHLGMYDK2T
+    feedback:
+      title: Was this workshop helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback!
+  consent:
+    title: Cookies
+    description: > 
+      Usamos cookies para reconocer sus visitas y preferencias repetidas, así como para medir la efectividad de nuestra documentación y si los usuarios encuentran lo que están buscando. Con su consentimiento, nos está ayudando a mejorar nuestra documentación.
+  social:
+    - icon: fontawesome/brands/sith
+      link: https://www.lacnog.org
+      name: LACNOG
