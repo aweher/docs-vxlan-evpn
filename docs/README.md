@@ -13,7 +13,7 @@
 
         Por favor **NO** haga pruebas de esto en una red en producción si no está seguro de lo que hace.
 
-    1. <a href="https://vxlan.nog.lat/register" target="_blank">Reg&iacute;strese aqu&iacute; para obtener un n&uacute;mero de asiento</a>
+    1. <a href="https://registration.vxlan.nog.lat" target="_blank">Reg&iacute;strese aqu&iacute; para obtener un n&uacute;mero de asiento</a>
     2. [Iniciar la práctica en español](/es/lab1/)
 
 ??? abstract "🇬🇧 English"
@@ -27,7 +27,7 @@
 
         Please **DO NOT** test this on a production network if you are not sure what it does.
 
-    1. <a href="https://vxlan.nog.lat/register" target="_blank">Register here to get a seat number</a>
+    1. <a href="https://registration.vxlan.nog.lat" target="_blank">Register here to get a seat number</a>
     2. [Start practice in english](/en/lab1/)
 
 ??? abstract "🇵🇹 Português"
@@ -41,7 +41,7 @@
 
         Por favor, **NÃO** teste em uma rede de produção se você não tiver certeza do que ela faz.
 
-    1. <a href="https://vxlan.nog.lat/register" target="_blank">Registre-se aqui para obter um n&uacute;mero de assento</a>
+    1. <a href="https://registration.vxlan.nog.lat" target="_blank">Registre-se aqui para obter um n&uacute;mero de assento</a>
     2. [Comece a praticar em português](/pt/lab1/)
 
 #### Autor
