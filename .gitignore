@@ -162,5 +162,6 @@ cython_debug/
 # ASW
 .venv
 .venv-linux
+.venv-macos
 site/
 .drafts/
