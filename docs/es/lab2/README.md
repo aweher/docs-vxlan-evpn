@@ -78,7 +78,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
                 inet6 fe80::248d:4dff:fe86:5ec1/64
                 Interface Type Vxlan
                 Interface Slave Type None
-                VxLAN Id 101 VTEP IP: 100.100.100.[X]
+                VxLAN Id 101
                 protodown: off 
         ```
 

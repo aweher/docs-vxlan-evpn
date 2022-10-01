@@ -56,6 +56,7 @@ nav:
       - 'LAB2': '/pt/lab2/'
     - '🎁 Extras':
       - 'SPINE Configs': '/extras/spine'
+      - 'CheatSheet': '/includes/cheatsheet'
 
 markdown_extensions:
     - toc:

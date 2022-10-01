@@ -78,7 +78,7 @@ Há dois tipos básicos de informação de "alcance" que um VTEP envia através 
                 inet6 fe80::248d:4dff:fe86:5ec1/64
                 Interface Type Vxlan
                 Interface Slave Type None
-                VxLAN Id 101 VTEP IP: 100.100.100.[X]
+                VxLAN Id 101
                 protodown: off 
         ```
 
