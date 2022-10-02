@@ -34,17 +34,17 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
             / # ip link set eth3 up
             / # ip link set bridge101 up
             / # ip link set eth3 master bridge101
-            / # bridge link
+            / # bridge -color link
             4812: eth3@if4811: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2
         ```
 
-    Antes de generar la interface VXLAN, debemos asignar una dirección IPv4 o IPv6 al LEAF[X] de manera tal que sea utilizada como VTEP y anunciada por BGP al resto de la red. Este VTEP debe ser alcanzable por todos los participantes para que finalmente se puedan generar túneles VXLAN de manera dinámica cuando EVPN distribuya toda la información de alcanzabilidad entre todos los routers.
+    Antes de generar la interface VXLAN, debemos asignar una dirección IPv4 al LEAF[X] de manera tal que sea utilizada como VTEP y anunciada por BGP al resto de la red. Este VTEP debe ser alcanzable por todos los participantes para que finalmente se puedan generar túneles VXLAN de manera dinámica cuando EVPN distribuya toda la información de alcanzabilidad entre todos los routers.
 
     === "LEAF[X]"
 
         ```txt hl_lines="7"
-            / # ip -6 address add 2001:db8:beef::[X]/128 dev lo
-            / # ip a show dev lo
+            / # ip address add 100.100.100.[X]/32 dev lo
+            / # ip -color a show dev lo
             1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
                 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
                 inet 127.0.0.1/8 scope host lo
@@ -63,7 +63,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
     === "LEAF[X]"
 
         ```txt hl_lines="4 10 16"
-            / # ip link add vxlan101 mtu 9000 type vxlan id 101 local 2001:db8:beef::[X] dstport 4789 nolearning
+            / # ip link add vxlan101 mtu 9000 type vxlan id 101 local 100.100.100.[X] dstport 4789 nolearning
             / # ip link set vxlan101 up
 
             / # vtysh -c "show interface vxlan101"
@@ -78,7 +78,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
                 inet6 fe80::248d:4dff:fe86:5ec1/64
                 Interface Type Vxlan
                 Interface Slave Type None
-                VxLAN Id 101
+                VxLAN Id 101 VTEP IP: 100.100.100.1
                 protodown: off 
         ```
 
@@ -89,8 +89,8 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
     === "LEAF[X]"
 
         ```txt hl_lines="3 4"
-            / # ip link set vxlan101 master bridge101
-            / # bridge link
+            / # ip -color link set vxlan101 master bridge101
+            / # bridge -color link
             282: eth3@if281: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2 
             4: vxlan101: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 master bridge101 state forwarding priority 32 cost 100 
         ```
@@ -116,14 +116,18 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
              bgp bestpath as-path multipath-relax
              timers bgp 3 9
              neighbor SPINE peer-group
-             ! por favor no modificar el valor 65007 del próximo comando...
-             neighbor SPINE remote-as 65007
-             !
+             neighbor SPINE remote-as external
              neighbor SPINE capability extended-nexthop
              neighbor eth1 interface peer-group SPINE
              neighbor eth1 description SPINE1
              neighbor eth2 interface peer-group SPINE
              neighbor eth2 description SPINE2
+             !
+             address-family ipv4 unicast
+              maximum-paths 64
+              neighbor SPINE activate
+              redistribute connected
+             exit-address-family
              !
              address-family ipv6 unicast
               maximum-paths 64
@@ -149,7 +153,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
         ```txt hl_lines="3 11 12 17 25 26 31 39 40"
         leaf[X]# show bgp sum established 
 
-        IPv6 Unicast Summary (VRF default):
+        IPv4 Unicast Summary (VRF default):
         BGP router identifier 100.100.100.[X], local AS number [X] vrf-id 0
         BGP table version 2
         RIB entries 3, using 576 bytes of memory
@@ -180,7 +184,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
 
 ??? example "Actividad 2.1.6"
 
-    En LEAF[X], chequeamos que se reciba información de NLRI en IPv6 y L2VPN EVPN.
+    En LEAF[X], chequeamos que se reciba información de NLRI en IPv4 y L2VPN EVPN.
 
     === "LEAF[X] (en vtysh) - MAC recibidas por VNI"
 
