@@ -108,7 +108,7 @@ extra:
     provider: google
     property: G-WHLGMYDK2T
     feedback:
-      title: Was this workshop helpful?
+      title: Was this page helpful?
       ratings:
         - icon: material/emoticon-happy-outline
           name: This page was helpful
