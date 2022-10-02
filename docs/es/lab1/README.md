@@ -36,13 +36,13 @@ Un caso de uso para este ejemplo es cuando tenemos múltiples hypervisores conec
 
         ```txt hl_lines="3 11 13"
         / # ip link set dev eth1 up
-        / # ip link show dev eth1
+        / # ip -color link show dev eth1
             4811: eth1@if4812: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
             link/ether aa:c1:ab:36:6a:30 brd ff:ff:ff:ff:ff:ff link-netnsid 1
         
         / # ip address add 10.0.0.[X]/24 dev eth1
         / # ip -6 address add 2001:db8:bebe:cafe::[X]/64 dev eth1
-        / # ip address show dev eth1
+        / # ip -color address show dev eth1
         4811: eth1@if4812: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP group default 
             link/ether aa:c1:ab:36:6a:30 brd ff:ff:ff:ff:ff:ff link-netnsid 1
             inet 10.0.0.[X]/24 scope global eth1
@@ -60,7 +60,7 @@ Un caso de uso para este ejemplo es cuando tenemos múltiples hypervisores conec
 
         ```txt hl_lines="3 10"
         / # ip link set dev eth4 up
-        / # ip link show dev eth4
+        / # ip -color link show dev eth4
             4811: eth1@if4812: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP mode DEFAULT group default 
             link/ether aa:c1:ab:36:6a:30 brd ff:ff:ff:ff:ff:ff link-netnsid 1
         
@@ -86,7 +86,7 @@ Un caso de uso para este ejemplo es cuando tenemos múltiples hypervisores conec
         / # ip link add name bridge101 type bridge
         / # ip link set bridge101 up
         / # ip link set eth3 master bridge101
-        / # bridge link
+        / # bridge -color link
         4812: eth3@if4811: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2
     ```
 
@@ -111,7 +111,7 @@ Un caso de uso para este ejemplo es cuando tenemos múltiples hypervisores conec
     ```txt hl_lines="4 5 8 9"
         / # ip link set vxlan101 master bridge101
         
-        / # bridge link
+        / # bridge -color link
         4812: eth3@if4811: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2 
         5: vxlan101: <BROADCAST,MULTICAST> mtu 9000 master bridge101 state disabled priority 32 cost 100 
         

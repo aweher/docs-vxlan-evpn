@@ -89,7 +89,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
     === "LEAF[X]"
 
         ```txt hl_lines="3 4"
-            / # ip -color link set vxlan101 master bridge101
+            / # ip link set vxlan101 master bridge101
             / # bridge -color link
             282: eth3@if281: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2 
             4: vxlan101: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 master bridge101 state forwarding priority 32 cost 100 
@@ -129,12 +129,6 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
               redistribute connected
              exit-address-family
              !
-             address-family ipv6 unicast
-              maximum-paths 64
-              neighbor SPINE activate
-              redistribute connected
-             exit-address-family
-            !
              address-family l2vpn evpn
               neighbor SPINE activate
               advertise-all-vni
@@ -146,7 +140,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
 
 ??? example "Actividad 2.1.5"
 
-    En LEAF[X], chequeamos que se establezcan correctamente los peers contra SPINE1 y SPINE2 en las 3 address-family (IPv4, IPv6, L2VPN EVPN).
+    En LEAF[X], chequeamos que se establezcan correctamente los peers contra SPINE1 y SPINE2 en las 2 address-family (IPv4 & L2VPN EVPN).
 
     === "LEAF[X] (en vtysh)"
 
