@@ -12,7 +12,7 @@ Para completar este ejercicio, se debe levantar una sesión de BGP multifamilia 
 
 Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a través de BGP EVPN
 
-* La información de cómo manegar el tráfico BUM de un determinado VNI (como rutas de tipo 3).
+* La información de cómo manejar el tráfico BUM de un determinado VNI (como rutas de tipo 3).
 * Por cada VNI, las direcciones MAC locales (como rutas de tipo 2).
 
 ??? error "Conectar al Laboratorio"
@@ -78,7 +78,7 @@ Hay dos tipos básicos de información de alcanzabilidad que un VTEP envía a tr
                 inet6 fe80::248d:4dff:fe86:5ec1/64
                 Interface Type Vxlan
                 Interface Slave Type None
-                VxLAN Id 101 VTEP IP: 100.100.100.1
+                VxLAN Id 101 VTEP IP: 100.100.100.[X]
                 protodown: off 
         ```
 

@@ -34,7 +34,7 @@ There are two basic types of reachability information that a VTEP sends through 
             / # ip link set eth3 up
             / # ip link set bridge101 up
             / # ip link set eth3 master bridge101
-            / # bridge link
+            / # bridge -color link
             4812: eth3@if4811: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2
         ```
 
@@ -43,8 +43,8 @@ There are two basic types of reachability information that a VTEP sends through 
     === "LEAF[X]"
 
         ```txt hl_lines="7"
-            / # ip -6 address add 2001:db8:beef::[X]/128 dev lo
-            / # ip a show dev lo
+            / # ip address add 100.100.100.[X]/32 dev lo
+            / # ip -color a show dev lo
             1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
                 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
                 inet 127.0.0.1/8 scope host lo
@@ -63,7 +63,7 @@ There are two basic types of reachability information that a VTEP sends through 
     === "LEAF[X]"
 
         ```txt hl_lines="4 10 16"
-            / # ip link add vxlan101 mtu 9000 type vxlan id 101 local 2001:db8:beef::[X] dstport 4789 nolearning
+            / # ip link add vxlan101 mtu 9000 type vxlan id 101 local 100.100.100.[X] dstport 4789 nolearning
             / # ip link set vxlan101 up
 
             / # vtysh -c "show interface vxlan101"
@@ -78,7 +78,7 @@ There are two basic types of reachability information that a VTEP sends through 
                 inet6 fe80::248d:4dff:fe86:5ec1/64
                 Interface Type Vxlan
                 Interface Slave Type None
-                VxLAN Id 101
+                VxLAN Id 101 VTEP IP: 100.100.100.[X]
                 protodown: off 
         ```
 
@@ -90,7 +90,7 @@ There are two basic types of reachability information that a VTEP sends through 
 
         ```txt hl_lines="3 4"
             / # ip link set vxlan101 master bridge101
-            / # bridge link
+            / # bridge -color link
             282: eth3@if281: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 master bridge101 state forwarding priority 32 cost 2 
             4: vxlan101: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9000 master bridge101 state forwarding priority 32 cost 100 
         ```
@@ -116,21 +116,19 @@ There are two basic types of reachability information that a VTEP sends through 
              bgp bestpath as-path multipath-relax
              timers bgp 3 9
              neighbor SPINE peer-group
-             ! please do not modify the value 65007 of the next command...
-             neighbor SPINE remote-as 65007
-             !
+             neighbor SPINE remote-as external
              neighbor SPINE capability extended-nexthop
              neighbor eth1 interface peer-group SPINE
              neighbor eth1 description SPINE1
              neighbor eth2 interface peer-group SPINE
              neighbor eth2 description SPINE2
              !
-             address-family ipv6 unicast
+             address-family ipv4 unicast
               maximum-paths 64
               neighbor SPINE activate
               redistribute connected
              exit-address-family
-            !
+             !
              address-family l2vpn evpn
               neighbor SPINE activate
               advertise-all-vni
@@ -142,14 +140,14 @@ There are two basic types of reachability information that a VTEP sends through 
 
 ??? example "Activity 2.1.5"
 
-    In LEAF[X], we check that the peers are correctly established against SPINE1 and SPINE2 in the 3 address-family (IPv4, IPv6, L2VPN EVPN).
+    In LEAF[X], we check that the peers are correctly established against SPINE1 and SPINE2 in the 3 address-family (IPv4 & L2VPN EVPN).
 
     === "LEAF[X] (inside vtysh)"
 
         ```txt hl_lines="3 11 12 17 25 26 31 39 40"
         leaf[X]# show bgp sum established 
 
-        IPv6 Unicast Summary (VRF default):
+        IPv4 Unicast Summary (VRF default):
         BGP router identifier 100.100.100.[X], local AS number [X] vrf-id 0
         BGP table version 2
         RIB entries 3, using 576 bytes of memory
